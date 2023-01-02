@@ -3,7 +3,6 @@ from flask import render_template
 
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_items, add_item
-import sys
 
 app = Flask(__name__)
 app.config.from_object(Config())
