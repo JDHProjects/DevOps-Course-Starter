@@ -29,7 +29,7 @@ def build_params(**kwargs):
 
 def get_items():
   """
-  Fetches all saved items from the session.
+  Fetches all saved items from the Trello board.
 
   Returns:
     list: The list of saved items.
@@ -45,7 +45,7 @@ def get_items():
 
 def add_item(title):
   """
-  Adds a new item with the specified title to the trello board.
+  Adds a new item with the specified title to the Trello board.
 
   Args:
     title: The title of the item.
@@ -65,7 +65,7 @@ def add_item(title):
 
 def change_item_list(id, list_id):
   """
-  Moves an existing item in the trello board to be part of a different list.
+  Moves an existing item in the Trello board to be part of a different list.
 
   Args:
     item: The item to update.
