@@ -12,7 +12,7 @@
       <h2>Not Started</h2>
         {% for task in tasks %}
           {% if task.status == "Not Started" %}
-            <div style="height: 50px;">{{ task.name }}</div>
+            <div style="height: 50px;">{{ task }}</div>
           {% endif %}
         {% endfor %}
     </div>
@@ -40,7 +40,7 @@
       <h2>Completed</h2>
         {% for task in tasks %}
           {% if task.status == "Completed" %}
-            <div style="height: 50px;">{{ task.name }}</div>
+            <div style="height: 50px;">{{ task }}</div>
           {% endif %}
         {% endfor %}
     </div>
