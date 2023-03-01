@@ -26,13 +26,21 @@ The project uses a virtual environment to isolate package dependencies. To creat
 $ poetry install
 ```
 
-You'll also need to clone a new `.env` file from the `.env.template` to store local configuration options. This is a one-time operation on first setup:
+## Environment Configuration
+You'll need to clone a new `.env` file from the `.env.template` to store local configuration options. This is a one-time operation on first setup:
 
 ```bash
 $ cp .env.template .env  # (first time only)
 ```
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+
+Some additional variables are required to be able to integrate with Trello:
+* `TRELLO_TOKEN` - Trello token
+* `TRELLO_API_KEY` - Trello API key
+* `TRELLO_BOARD_ID` - Board to hold both below lists
+* `TRELLO_COMPLETED_LIST` - List to hold completed tasks
+* `TRELLO_NOT_STARTED_LIST` - List to hold not yet started tasks
 
 ## Running the App
 
