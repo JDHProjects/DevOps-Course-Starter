@@ -2,14 +2,13 @@ import requests
 import os
 
 TRELLO_BASE = "https://api.trello.com/1"
-BOARD_ID = "63dd25f4eaaf087231fa1c44"
 
 class Item:
   def __init__(self, card):
     self.id = card["id"]
     self.name = card["name"]
     self.status_id = card["idList"]
-    self.status = "Not Started" if self.status_id == os.getenv('TRELLO_NOT_STARTED_LIST') else "Completed"
+    self.completed = self.status_id == os.getenv('TRELLO_COMPLETED_LIST')
 
   def __str__(self):
     return self.name
