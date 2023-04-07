@@ -7,45 +7,27 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <div class="row" style="display: flex;text-align: center;">
-    <div style="width: 45%;">
+  <div class="row" style="display: flex;text-align: center;justify-content: space-around;">
+    <div class="list_column" id="not-started" ondrop=handleDrop(event) ondragover=handleDragOver(event)>
       <h2>Not Started</h2>
-        {% for task in tasks %}
-          {% if not self.completed %}
-            <div style="height: 50px;">{{ task }}</div>
-          {% endif %}
+        {% for item in view_model.not_started_items %}
+          <div draggable="true" class="list_item" ondragstart=handleDragStart(event) ondragend=handleDragEnd(event) id={{item.id}}>{{ item }}</div>
         {% endfor %}
     </div>
-    <div style="width: 5%; padding-bottom: 125px;">
-      <h2>-&gt;</h2>
-        {% for task in tasks %}
-          {% if not self.completed %}
-            <form action="{{ url_for('completed_item', id=task.id) }}" style="height: 50px;">
-              <input type="submit" value="-&gt;"/>
-            </form>
-          {% endif %}
+    <div class="list_column" id="in-progress" ondrop=handleDrop(event) ondragover=handleDragOver(event)>
+      <h2>In Progress</h2>
+        {% for item in view_model.in_progress_items %}
+        <div draggable="true" class="list_item" ondragstart=handleDragStart(event) ondragend=handleDragEnd(event) id={{item.id}}>{{ item }}</div>
         {% endfor %}
     </div>
-    <div style="width: 5%;padding-bottom: 125px;">
-      <h2>&lt;-</h2>
-        {% for task in tasks %}
-          {% if self.completed %}
-            <form action="{{ url_for('not_started_item', id=task.id) }}" style="height: 50px;">
-              <input type="submit" value="&lt;-"/>
-            </form>
-          {% endif %}
-        {% endfor %}
-    </div>
-    <div style="width: 45%;">
+    <div class="list_column" id="completed" ondrop=handleDrop(event) ondragover=handleDragOver(event)>
       <h2>Completed</h2>
-        {% for task in tasks %}
-          {% if self.completed %}
-            <div style="height: 50px;">{{ task }}</div>
-          {% endif %}
+        {% for item in view_model.completed_items %}
+        <div draggable="true" class="list_item" ondragstart=handleDragStart(event) ondragend=handleDragEnd(event) id={{item.id}}>{{ item }}</div>
         {% endfor %}
     </div>
   </div>
-  <div style="position: fixed;left: 50%;transform: translate(-50%, 0); background-color: #EAECEF; padding: 20px; border-radius: 20px; bottom: 5%;">
+  <div class="floating_submit">
     <form action="/add" method="post">
       <div>
         <input type="text" name="task_title" required>

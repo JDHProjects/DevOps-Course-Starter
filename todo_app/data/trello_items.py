@@ -8,7 +8,12 @@ class Item:
     self.id = card["id"]
     self.name = card["name"]
     self.status_id = card["idList"]
-    self.completed = self.status_id == os.getenv('TRELLO_COMPLETED_LIST')
+    if self.status_id == os.getenv('TRELLO_NOT_STARTED_LIST'):
+      self.status = "Not Started" 
+    elif self.status_id == os.getenv('TRELLO_IN_PROGRESS_LIST'):
+      self.status = "In Progress"
+    else:
+      self.status = "Completed"
 
   def __str__(self):
     return self.name
