@@ -64,4 +64,4 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ## Testing
 
-Python unit tests can be executed with `poetry run pytest`
+All tests can be executed with `poetry run pytest`

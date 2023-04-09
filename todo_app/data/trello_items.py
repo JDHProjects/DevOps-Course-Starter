@@ -42,8 +42,7 @@ class Items:
     Returns:
       list: The list of saved items.
     """
-    response = requests.request(
-      "GET",
+    response = requests.get(
       f'{TRELLO_BASE}/boards/{os.getenv("TRELLO_BOARD_ID")}/cards',
       params=self._build_params()
     )
@@ -59,8 +58,7 @@ class Items:
     Args:
       title: The title of the item.
     """
-    response = requests.request(
-      "POST",
+    response = requests.post(
       f"{TRELLO_BASE}/cards",
       params=self._build_params(idList=os.getenv('TRELLO_NOT_STARTED_LIST'), name=title)
     )
@@ -76,8 +74,7 @@ class Items:
     Args:
       item: The item to update.
     """
-    response = requests.request(
-      "PUT",
+    response = requests.put(
       f'{TRELLO_BASE}/cards/{id}',
       params=self._build_params(idList=list_id)
     )
