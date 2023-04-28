@@ -1,0 +1,5 @@
+---
+- name: install and start todo app
+  hosts: frontend
+  remote_user: ec2-user
+  tasks:
