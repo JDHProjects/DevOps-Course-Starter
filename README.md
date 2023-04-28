@@ -41,6 +41,7 @@ Some additional variables are required to be able to integrate with Trello:
 * `TRELLO_BOARD_ID` - Board to hold both below lists
 * `TRELLO_COMPLETED_LIST` - List to hold completed tasks
 * `TRELLO_NOT_STARTED_LIST` - List to hold not yet started tasks
+* `TRELLO_IN_PROGRESS_LIST` - List to hold in progress tasks
 
 ## Running the App
 
@@ -60,3 +61,7 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Testing
+
+All tests can be executed with `poetry run pytest`
