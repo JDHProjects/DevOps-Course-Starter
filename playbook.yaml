@@ -13,3 +13,10 @@
   - name: Install Poetry
     ansible.builtin.shell:
       cmd: curl -sSL https://install.python-poetry.org | python3 -
+      creates: ~/.local/bin/poetry
+  - name: Make directory for app
+    ansible.builtin.shell:
+      cmd: >
+        mkdir /opt/todoapp &&
+        chown ec2-user /opt/todoapp
+      creates: /opt/todoapp
