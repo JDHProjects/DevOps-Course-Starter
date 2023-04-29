@@ -5,10 +5,10 @@
   tasks:
   - name: Install Git, Python3
     ansible.builtin.yum:
-    name:
-    - git
-    - python3
-    state: present
+      name:
+      - git
+      - python3
+      state: present
   - name: Install Poetry
     ansible.builtin.shell:
-    cmd: curl -sSL https://install.python-poetry.org | python3 -
+      cmd: curl -sSL https://install.python-poetry.org | python3 -
