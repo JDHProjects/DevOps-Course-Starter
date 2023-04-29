@@ -2,6 +2,16 @@
 - name: install and start todo app
   hosts: frontend
   remote_user: ec2-user
+  vars_prompt:
+    - name: secret_key
+      prompt: Flask secret key?
+      private: false
+    - name: trello_token
+      prompt: Trello token?
+      private: false
+    - name: trello_key
+      prompt: Trello key?
+      private: false
   tasks:
   - name: Install Git, Python3
     ansible.builtin.yum:
@@ -29,3 +39,8 @@
     ansible.builtin.shell:
       cmd: ~/.local/bin/poetry install
       chdir: /opt/todoapp
+  - name: Setup Env File
+    ansible.builtin.template:
+      src: .env.j2
+      dest: /opt/todoapp/.env
+      creates: /opt/todoapp/.env
