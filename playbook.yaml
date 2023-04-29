@@ -14,9 +14,18 @@
     ansible.builtin.shell:
       cmd: curl -sSL https://install.python-poetry.org | python3 -
       creates: ~/.local/bin/poetry
-  - name: Make directory for app
+  - name: Make App Directory
     ansible.builtin.shell:
       cmd: >
         mkdir /opt/todoapp &&
         chown ec2-user /opt/todoapp
       creates: /opt/todoapp
+    become: true
+  - name: Git checkout
+    ansible.builtin.git:
+      repo: 'https://github.com/JDHProjects/DevOps-Course-Starter.git'
+      dest: /opt/todoapp
+  - name: Install Dependencies for Poetry 
+    ansible.builtin.shell:
+      cmd: ~/.local/bin/poetry install
+      chdir: /opt/todoapp
