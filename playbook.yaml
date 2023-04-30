@@ -23,7 +23,7 @@
   - name: Install Poetry
     ansible.builtin.shell:
       cmd: curl -sSL https://install.python-poetry.org | python3 -
-      creates: ~/.local/bin/poetry
+      creates: /home/ec2-user/.local/bin/poetry
   - name: Make App Directory
     ansible.builtin.shell:
       cmd: >
@@ -37,9 +37,20 @@
       dest: /opt/todoapp
   - name: Install Dependencies for Poetry 
     ansible.builtin.shell:
-      cmd: ~/.local/bin/poetry install
+      cmd: /home/ec2-user/.local/bin/poetry install
       chdir: /opt/todoapp
   - name: Setup Env File
     ansible.builtin.template:
       src: .env.j2
       dest: /opt/todoapp/.env
+  - name: Copy todoapp.service
+    ansible.builtin.copy:
+      src: todoapp.service
+      dest: /etc/systemd/system/todoapp.service
+    become: true
+  - name: Start todoapp.service
+    ansible.builtin.systemd:
+      name: todoapp.service
+      daemon_reload: true
+      state: restarted
+    become: true
