@@ -25,8 +25,14 @@ This project is setup to be able to be deployed using Ansible. To deploy, run th
 ```bash 
 $ ansible-playbook playbook.yaml -i inventory.yaml
 ```
+This will prompt you for three values:
+* Flask secret key
+* Trello token
+* Trello API key
 
-You should now be able to view the hosted app at 3.11.233.49:5000
+Inputting these values will allow ansible to deploy the app. Board IDs are currently hardcoded for convenience into the Jinja template as these values are non-sensitive. 
+
+You should now be able to view the hosted app at http://3.11.233.49:5000
 
 ## Dependencies
 
