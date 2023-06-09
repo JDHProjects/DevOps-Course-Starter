@@ -1,0 +1,5 @@
+all:
+  children:
+    frontend:
+      hosts:
+        3.11.233.49
