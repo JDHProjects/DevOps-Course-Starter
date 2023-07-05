@@ -1,0 +1,22 @@
+services:
+  development:
+    build: 
+      context: .
+      target: development
+    ports:
+      - 8000:5000
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: todo_app
+        target: /todo_app
+
+  production:
+    build: 
+      context: .
+      target: production
+    ports:
+      - 8000:8000
+    env_file:
+      - .env

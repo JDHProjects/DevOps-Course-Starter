@@ -6,6 +6,22 @@
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install Poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
 
+
+### Running with Docker
+
+Setup is simple with Docker (and Docker compose)! Simply run:
+```bash
+docker compose up development
+```
+to start the development server, which will auto reload on file changes.
+
+To run the production server (using Gunicorn), instead run:  
+```bash
+docker compose up production
+```
+
+Either of these servers can be accessed at: http://localhost:8000
+
 ### Poetry installation (Bash)
 
 ```bash
