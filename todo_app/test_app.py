@@ -1,8 +1,15 @@
-import pytest, requests, os
+"""Unit tests for app as a whole."""
+
+import os
+import pytest
+import requests
 from dotenv import load_dotenv, find_dotenv
 from todo_app import app
 
+# pylint: disable=redefined-outer-name, missing-function-docstring
+
 class StubResponse():
+  """Faked response data for testing."""
   def __init__(self, fake_response_data):
     self.fake_response_data = fake_response_data
 
@@ -11,14 +18,15 @@ class StubResponse():
 
 @pytest.fixture
 def client(monkeypatch):
-  def stub(url, params={}):
+  def stub(url, params, timeout): # pylint: disable=unused-argument
     test_board_id = os.environ.get('TRELLO_BOARD_ID')
     if url == f'https://api.trello.com/1/boards/{test_board_id}/cards':
       fake_response_data = [{
         'id': '1',
         'name': 'test1',
         'idList': os.environ.get('TRELLO_COMPLETED_LIST')
-      },{
+      },
+      {
         'id': '2',
         'name': 'test2',
         'idList': os.environ.get('TRELLO_IN_PROGRESS_LIST')
@@ -57,8 +65,8 @@ def test_index_page(client):
   assert 'id="completed"' in page
 
 def test_add_page(monkeypatch, client):
-  def stub(url, params={}):
-    if url == f'https://api.trello.com/1/cards':
+  def stub(url, params, timeout): # pylint: disable=unused-argument
+    if url == 'https://api.trello.com/1/cards':
       fake_response_data = {
         'id': '1',
         'name': 'test1',
@@ -71,13 +79,13 @@ def test_add_page(monkeypatch, client):
   response = client.post('/add')
   assert response.status_code == 302
   page = response.data.decode()
-  
+
   # check redirect back to index
   assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
 
 def test_not_started_page(monkeypatch, client):
-  def stub(url, params={}):
-    if url == f'https://api.trello.com/1/cards/1':
+  def stub(url, params, timeout): # pylint: disable=unused-argument
+    if url == 'https://api.trello.com/1/cards/1':
       fake_response_data = {
         'id': '1',
         'name': 'test1',
@@ -85,18 +93,18 @@ def test_not_started_page(monkeypatch, client):
       }
       return StubResponse(fake_response_data)
     raise Exception(f'Integration test did not expect URL "{url}"')
-  
+
   monkeypatch.setattr(requests, 'put', stub)
   response = client.get('/completed/1')
   assert response.status_code == 302
   page = response.data.decode()
-  
+
   # check redirect back to index
   assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
 
 def test_in_progress_page(monkeypatch, client):
-  def stub(url, params={}):
-    if url == f'https://api.trello.com/1/cards/1':
+  def stub(url, params, timeout): # pylint: disable=unused-argument
+    if url == 'https://api.trello.com/1/cards/1':
       fake_response_data = {
         'id': '1',
         'name': 'test1',
@@ -109,13 +117,13 @@ def test_in_progress_page(monkeypatch, client):
   response = client.get('/in-progress/1')
   assert response.status_code == 302
   page = response.data.decode()
-  
+
   # check redirect back to index
   assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
 
 def test_completed_page(monkeypatch, client):
-  def stub(url, params={}):
-    if url == f'https://api.trello.com/1/cards/1':
+  def stub(url, params, timeout): # pylint: disable=unused-argument
+    if url == 'https://api.trello.com/1/cards/1':
       fake_response_data = {
         'id': '1',
         'name': 'test1',
@@ -128,6 +136,6 @@ def test_completed_page(monkeypatch, client):
   response = client.get('/completed/1')
   assert response.status_code == 302
   page = response.data.decode()
-  
+
   # check redirect back to index
   assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
