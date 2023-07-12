@@ -25,7 +25,6 @@ COPY todo_app todo_app
 ENTRYPOINT ["poetry", "run", "pytest", "todo_app"]
 
 FROM base as check-format
+
 COPY . .
-#ENTRYPOINT [ "ls", "-a" ]
-#ENTRYPOINT ["poetry", "run", "pytest", "todo_app"]
 ENTRYPOINT ["poetry", "run", "pre-commit", "run", "--all-files"]
