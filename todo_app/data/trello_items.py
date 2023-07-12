@@ -1,15 +1,18 @@
-import requests
+"""Item and Items class to hold trello card data in a sensible way"""
+
 import os
+import requests
 
 TRELLO_BASE = "https://api.trello.com/1"
 
 class Item:
+    """Represents a single trello card."""
     def __init__(self, card):
-      self.id = card["id"]
+      self.card_id = card["id"]
       self.name = card["name"]
       self.status_id = card["idList"]
       if self.status_id == os.getenv('TRELLO_NOT_STARTED_LIST'):
-        self.status = "Not Started" 
+        self.status = "Not Started"
       elif self.status_id == os.getenv('TRELLO_IN_PROGRESS_LIST'):
         self.status = "In Progress"
       else:
@@ -19,6 +22,7 @@ class Item:
       return self.name
 
 class Items:
+  """Represents all trello cards."""
   def __init__(self):
     self.items = self.get_items()
 
@@ -44,7 +48,7 @@ class Items:
     """
     response = requests.get(
       f'{TRELLO_BASE}/boards/{os.getenv("TRELLO_BOARD_ID")}/cards',
-      params=self._build_params()
+      params=self._build_params(), timeout=5
     )
 
     self.items = [Item(card) for card in response.json()]
@@ -60,14 +64,15 @@ class Items:
     """
     response = requests.post(
       f"{TRELLO_BASE}/cards",
-      params=self._build_params(idList=os.getenv('TRELLO_NOT_STARTED_LIST'), name=title)
+      params=self._build_params(idList=os.getenv('TRELLO_NOT_STARTED_LIST'), name=title),
+      timeout=5
     )
 
     card = response.json()
     self.items.append(Item(card))
 
 
-  def change_item_list(self, id, list_id):
+  def change_item_list(self, card_id, list_id):
     """
     Moves an existing item in the Trello board to be part of a different list.
 
@@ -75,13 +80,14 @@ class Items:
       item: The item to update.
     """
     response = requests.put(
-      f'{TRELLO_BASE}/cards/{id}',
-      params=self._build_params(idList=list_id)
+      f'{TRELLO_BASE}/cards/{card_id}',
+      params=self._build_params(idList=list_id),
+       timeout=5
     )
 
     card = response.json()
     for item in self.items:
-      if item.id == id:
+      if item.card_id == card_id:
         self.items.remove(item)
         self.items.append(Item(card))
-        return 
+        return

@@ -1,13 +1,17 @@
+"""Unit tests for view_model.py."""
+import os
+import pytest
 from todo_app.models.view_model import ViewModel
 from todo_app.data.trello_items import Item
-import os, pytest
 
 @pytest.fixture(scope='session', autouse=True)
 def set_env():
+    """Set envrionment for each unit test."""
     os.environ['TRELLO_NOT_STARTED_LIST'] = "123"
     os.environ['TRELLO_IN_PROGRESS_LIST'] = "456"
     os.environ['TRELLO_COMPLETED_LIST'] = "789"
 
+# pylint: disable=missing-function-docstring
 def test_completed_items():
     items = [
         Item({"id":0, "name": "test0", "idList": os.getenv('TRELLO_NOT_STARTED_LIST')}),

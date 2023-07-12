@@ -15,7 +15,7 @@ docker compose up development
 ```
 to start the development server, which will auto reload on file changes.
 
-To run the production server (using Gunicorn), instead run:  
+To run the production server (using Gunicorn), instead run:
 ```bash
 docker compose up production
 ```
@@ -38,7 +38,7 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 
 This project is setup to be able to be deployed using Ansible. To deploy, run the following:
 
-```bash 
+```bash
 $ ansible-playbook playbook.yaml -i inventory.yaml
 ```
 This will prompt you for three values:
@@ -46,7 +46,7 @@ This will prompt you for three values:
 * Trello token
 * Trello API key
 
-Inputting these values will allow ansible to deploy the app. Board IDs are currently hardcoded for convenience into the Jinja template as these values are non-sensitive. 
+Inputting these values will allow ansible to deploy the app. Board IDs are currently hardcoded for convenience into the Jinja template as these values are non-sensitive.
 
 You should now be able to view the hosted app at http://3.11.233.49:5000
 
