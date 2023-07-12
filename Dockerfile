@@ -16,3 +16,8 @@ FROM base as development
 
 EXPOSE 5000
 ENTRYPOINT ["poetry", "run", "flask", "run", "--host", "0.0.0.0"]
+
+FROM base as test
+
+COPY todo_app /todo_app
+ENTRYPOINT ["poetry", "run", "pytest", "todo_app"]
