@@ -1,6 +1,6 @@
 services:
   development:
-    build: 
+    build:
       context: .
       target: development
     ports:
@@ -13,7 +13,7 @@ services:
         target: /todo_app
 
   production:
-    build: 
+    build:
       context: .
       target: production
     ports:

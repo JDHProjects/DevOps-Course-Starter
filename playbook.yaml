@@ -35,7 +35,7 @@
     ansible.builtin.git:
       repo: 'https://github.com/JDHProjects/DevOps-Course-Starter.git'
       dest: /opt/todoapp
-  - name: Install Dependencies for Poetry 
+  - name: Install Dependencies for Poetry
     ansible.builtin.shell:
       cmd: /home/ec2-user/.local/bin/poetry install
       chdir: /opt/todoapp

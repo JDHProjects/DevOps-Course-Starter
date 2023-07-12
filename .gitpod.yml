@@ -10,6 +10,6 @@ vscode:
     - littlefoxteam.vscode-python-test-adapter
 
 tasks:
-  - command: | 
+  - command: |
       cp .env.template .env
       poetry install
