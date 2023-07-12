@@ -26,11 +26,9 @@ services:
       context: .
       target: test
     env_file:
-      - .env
+      - .env.test
 
   check-format:
     build:
       context: .
       target: check-format
-    env_file:
-      - .env
