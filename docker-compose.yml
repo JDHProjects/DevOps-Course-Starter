@@ -10,7 +10,7 @@ services:
     volumes:
       - type: bind
         source: todo_app
-        target: /todo_app
+        target: /app/todo_app
 
   production:
     build:
@@ -20,10 +20,17 @@ services:
       - 8000:8000
     env_file:
       - .env
-  
+
   test:
-    build: 
+    build:
       context: .
       target: test
+    env_file:
+      - .env
+
+  check-format:
+    build:
+      context: .
+      target: check-format
     env_file:
       - .env
