@@ -81,7 +81,7 @@ def test_add_page(monkeypatch, client):
   page = response.data.decode()
 
   # check redirect back to index
-  assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
+  assert 'You should be redirected automatically to the target URL: <a href="/">/</a>' in page
 
 def test_not_started_page(monkeypatch, client):
   def stub(url, params, timeout): # pylint: disable=unused-argument
@@ -100,7 +100,7 @@ def test_not_started_page(monkeypatch, client):
   page = response.data.decode()
 
   # check redirect back to index
-  assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
+  assert 'You should be redirected automatically to the target URL: <a href="/">/</a>' in page
 
 def test_in_progress_page(monkeypatch, client):
   def stub(url, params, timeout): # pylint: disable=unused-argument
@@ -119,7 +119,7 @@ def test_in_progress_page(monkeypatch, client):
   page = response.data.decode()
 
   # check redirect back to index
-  assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
+  assert 'You should be redirected automatically to the target URL: <a href="/">/</a>' in page
 
 def test_completed_page(monkeypatch, client):
   def stub(url, params, timeout): # pylint: disable=unused-argument
@@ -138,4 +138,4 @@ def test_completed_page(monkeypatch, client):
   page = response.data.decode()
 
   # check redirect back to index
-  assert 'You should be redirected automatically to target URL: <a href="/">/</a>' in page
+  assert 'You should be redirected automatically to the target URL: <a href="/">/</a>' in page

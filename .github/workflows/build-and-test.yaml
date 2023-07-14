@@ -1,0 +1,22 @@
+name: Continuous Integration
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build and Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 #v3.5.3
+
+      - name: Create dummy .env
+        run: touch .env
+
+      - name: Check pre-commit Hooks
+        run: docker compose up --build check-format
+
+      - name: Build, Test
+        run: docker compose up --build test
