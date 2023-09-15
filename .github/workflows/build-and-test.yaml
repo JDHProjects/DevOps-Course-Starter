@@ -44,3 +44,6 @@ jobs:
         run: |
           docker login -u jdhprojects -p ${{ secrets.DOCKER_PAT }}
           docker push jdhprojects/devops-course-starter --all-tags
+
+      - name: Redeploy to Azure
+        run: curl -dH -X POST ${{ secrets.AZURE_DEPLOY_HOOK }}
