@@ -1,12 +1,14 @@
 name: Continuous Integration
 on:
   push:
+    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
-  build:
+  build-test:
     name: Build and Run Unit Tests
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -20,3 +22,25 @@ jobs:
 
       - name: Build, Test
         run: docker compose up --build test
+
+  publish:
+    name: Publish image to Docker Hub
+    needs: build-test
+    if: github.event_name == "push" && github.ref == "feature/module-9"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 #v3.5.3
+
+      - name: Create dummy .env
+        run: touch .env
+
+      - name: Build, Tag Image
+        run: |
+          docker build --target production --tag jdhprojects/devops-course-starter:latest --tag jdhprojects/devops-course-starter:$GITHUB_SHA .
+
+      - name: Push to Docker Hub
+        run: |
+          docker login -u jdhprojects -p {{ secrets.DOCKER_PAT }}
+          docker push jdhprojects/devops-course-starter --all-tags
