@@ -42,5 +42,5 @@ jobs:
 
       - name: Push to Docker Hub
         run: |
-          docker login -u jdhprojects -p {{ secrets.DOCKER_PAT }}
+          docker login -u jdhprojects -p ${{ secrets.DOCKER_PAT }}
           docker push jdhprojects/devops-course-starter --all-tags
