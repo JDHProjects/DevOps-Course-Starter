@@ -26,7 +26,7 @@ jobs:
   publish:
     name: Publish image to Docker Hub
     needs: build-test
-    if: github.event_name == 'push' && github.ref == 'feature/module-9'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
