@@ -7,7 +7,7 @@
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install Poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
 
 
-### Running with Docker
+## Running with Docker Compose
 
 Setup is simple with Docker (and Docker compose)! Simply run:
 ```bash
@@ -22,13 +22,43 @@ docker compose up production
 
 Either of these servers can be accessed at: http://localhost:8000
 
-### Poetry installation (Bash)
+## Prebuilt Docker Images
+
+Prebuilt production ready images can be found on Docker Hub: https://hub.docker.com/repository/docker/jdhprojects/devops-course-starter/general
+
+## Azure Hosted todo-app
+
+The todo-app is hosted using azure here: https://jp-todo-app-module-7.azurewebsites.net/
+
+### Updating the Azure app
+
+Login to docker:
+```
+docker login
+```
+
+Build the production image and tag it:
+```
+docker build --target production --tag jdhprojects/devops-course-starter:prod .
+```
+
+Push to Docker Hub:
+```
+docker push jdhprojects/devops-course-starter:prod
+```
+
+Redeploy the Azure web app:
+```
+curl -dH -X POST "<webhook url with escaped $>"
+```
+
+## Poetry installation (Bash)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 ```
 
-### Poetry installation (PowerShell)
+## Poetry installation (PowerShell)
 
 ```powershell
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py -UseBasicParsing).Content | python -
